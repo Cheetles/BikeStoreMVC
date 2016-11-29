@@ -1,0 +1,26 @@
+﻿@model BikeStoreMVC.Models.tbl_model
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>tbl_model</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.model)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.model)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.modID }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

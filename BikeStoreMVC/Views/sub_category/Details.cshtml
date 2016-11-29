@@ -1,0 +1,34 @@
+﻿@model BikeStoreMVC.Models.tbl_sub_category
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>tbl_sub_category</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.subcategory)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.subcategory)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.tbl_category.category)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.tbl_category.category)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.subID }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

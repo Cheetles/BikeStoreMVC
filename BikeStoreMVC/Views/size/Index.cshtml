@@ -1,0 +1,33 @@
+﻿@model IEnumerable<BikeStoreMVC.Models.tbl_size>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.size)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.size)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.sizID }) |
+            @Html.ActionLink("Details", "Details", new { id=item.sizID }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.sizID })
+        </td>
+    </tr>
+}
+
+</table>
