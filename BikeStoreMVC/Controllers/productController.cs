@@ -7,6 +7,7 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using BikeStoreMVC.Models;
+using PagedList;
 
 namespace BikeStoreMVC.Controllers
 {
@@ -15,9 +16,28 @@ namespace BikeStoreMVC.Controllers
         private BikeStoreEntities db = new BikeStoreEntities();
 
         // GET: product
+        /*
         public ActionResult Index()
         {
             var tbl_product = db.tbl_product.Include(t => t.tbl_category).Include(t => t.tbl_colour).Include(t => t.tbl_description).Include(t => t.tbl_model).Include(t => t.tbl_size).Include(t => t.tbl_sub_category);
+            return View(tbl_product.ToList());
+        }
+        */
+
+        public ActionResult Index(string sortOrder)
+        {
+            ViewBag.ModelSortParam = string.IsNullOrEmpty(sortOrder) ? "model_desc" : "";
+            var tbl_product = db.tbl_product.Include(t => t.tbl_category).Include(t => t.tbl_colour).Include(t => t.tbl_description).Include(t => t.tbl_model).Include(t => t.tbl_size).Include(t => t.tbl_sub_category);
+
+            switch (sortOrder)
+            {
+                case "model_desc":
+                    tbl_product = tbl_product.OrderByDescending(s => s.tbl_model.model);
+                    break;
+                default:
+                    tbl_product = tbl_product.OrderBy(s => s.tbl_model.model);
+                    break;
+            }
             return View(tbl_product.ToList());
         }
 
@@ -39,12 +59,14 @@ namespace BikeStoreMVC.Controllers
         // GET: product/Create
         public ActionResult Create()
         {
+
             ViewBag.categoryID = new SelectList(db.tbl_category, "catID", "category");
+            ViewBag.subCategoryID = new SelectList(db.tbl_sub_category, "subID", "subCategory");
             ViewBag.colourID = new SelectList(db.tbl_colour, "colID", "colour");
             ViewBag.descriptionID = new SelectList(db.tbl_description, "desID", "description");
             ViewBag.modelID = new SelectList(db.tbl_model, "modID", "model");
             ViewBag.sizeID = new SelectList(db.tbl_size, "sizID", "size");
-            ViewBag.subCategoryID = new SelectList(db.tbl_sub_category, "subID", "subcategory");
+           
             return View();
         }
 

@@ -30,7 +30,8 @@
             @Html.DisplayNameFor(model => model.tbl_description.description)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.tbl_model.model)
+            @*@Html.DisplayNameFor(model => model.tbl_model.model)*@
+            @Html.ActionLink("Model", "Index", new { sortOrder = ViewBag.ModelSortParam})
         </th>
         <th>
             @Html.DisplayNameFor(model => model.tbl_size.size)

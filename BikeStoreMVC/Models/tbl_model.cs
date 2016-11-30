@@ -22,8 +22,10 @@ namespace BikeStoreMVC.Models
     
         public int modID { get; set; }
         public string model { get; set; }
+        public Nullable<int> subID { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<tbl_product> tbl_product { get; set; }
+        public virtual tbl_sub_category tbl_sub_category { get; set; }
     }
 }

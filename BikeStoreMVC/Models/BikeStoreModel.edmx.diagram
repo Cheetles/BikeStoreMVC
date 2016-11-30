@@ -19,6 +19,7 @@
         <AssociationConnector Association="BikeStoreModel.FK_tbl_product_tbl_product_modelID" ManuallyRouted="false" />
         <AssociationConnector Association="BikeStoreModel.FK_tbl_product_tbl_product_sizeID" ManuallyRouted="false" />
         <AssociationConnector Association="BikeStoreModel.FK_tbl_product_tbl_product_subCategoryID" ManuallyRouted="false" />
+        <AssociationConnector Association="BikeStoreModel.FK_tbl_model_tbl_sub_category_subID" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
