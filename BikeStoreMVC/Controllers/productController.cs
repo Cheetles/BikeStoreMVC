@@ -26,10 +26,28 @@ namespace BikeStoreMVC.Controllers
 
             
 
-        public ActionResult Index(string sortOrder)
+        public ActionResult Index(string sortOrder, string currentFilter, string searchString, int? page)
         {
+            ViewBag.CurrentSort = sortOrder;
             ViewBag.ModelSortParam = string.IsNullOrEmpty(sortOrder) ? "model_desc" : "";
+
+            if (searchString != null)
+            {
+                page = 1;
+            }
+            else
+            {
+                searchString = currentFilter;
+            }
+            
+
+            ViewBag.CurrentFilter = searchString;
             var tbl_product = db.tbl_product.Include(t => t.tbl_category).Include(t => t.tbl_colour).Include(t => t.tbl_description).Include(t => t.tbl_model).Include(t => t.tbl_size).Include(t => t.tbl_sub_category);
+
+            if (!String.IsNullOrEmpty(searchString))
+            {
+                tbl_product = tbl_product.Where(s => s.productName.Contains(searchString));
+            }
 
             switch (sortOrder)
             {
@@ -40,7 +58,11 @@ namespace BikeStoreMVC.Controllers
                     tbl_product = tbl_product.OrderBy(s => s.tbl_model.model);
                     break;
             }
-            return View(tbl_product.ToList());
+            int pageSize = 10;
+            int pageNumber = (page ?? 1);
+
+            //return View(tbl_product.ToList());
+            return View(tbl_product.ToPagedList(pageNumber, pageSize));
         }
 
         // GET: product/Details/5
