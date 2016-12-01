@@ -24,6 +24,8 @@ namespace BikeStoreMVC.Controllers
         }
         */
 
+            
+
         public ActionResult Index(string sortOrder)
         {
             ViewBag.ModelSortParam = string.IsNullOrEmpty(sortOrder) ? "model_desc" : "";
@@ -59,15 +61,53 @@ namespace BikeStoreMVC.Controllers
         // GET: product/Create
         public ActionResult Create()
         {
+            var category = db.tbl_category.ToList();
+            List<SelectListItem> li = new List<SelectListItem>();
+            li.Add(new SelectListItem { Text = "[Select a category]", Value = "0" });
+            foreach (var c in category)
+            {
+                li.Add(new SelectListItem { Text = c.category, Value = c.catID.ToString() });
+                ViewBag.category = li;
+            }
 
-            ViewBag.categoryID = new SelectList(db.tbl_category, "catID", "category");
-            ViewBag.subCategoryID = new SelectList(db.tbl_sub_category, "subID", "subCategory");
+            //ViewBag.categoryID = new SelectList(db.tbl_category, "catID", "category");
+            //ViewBag.subCategoryID = new SelectList(db.tbl_sub_category, "subID", "subCategory");
             ViewBag.colourID = new SelectList(db.tbl_colour, "colID", "colour");
             ViewBag.descriptionID = new SelectList(db.tbl_description, "desID", "description");
-            ViewBag.modelID = new SelectList(db.tbl_model, "modID", "model");
+            //ViewBag.modelID = new SelectList(db.tbl_model, "modID", "model");
             ViewBag.sizeID = new SelectList(db.tbl_size, "sizID", "size");
            
             return View();
+        }
+
+        public JsonResult getSubCategory(int id)
+        {
+            var subcats = db.tbl_sub_category.Where(x => x.catID == id).ToList();
+            List<SelectListItem> lstSubCats = new List<SelectListItem>();
+            lstSubCats.Add(new SelectListItem { Text = "[Select Sub Category]", Value = "0" });
+            if (subcats != null)
+            {
+                foreach (var c in subcats)
+                {
+                    lstSubCats.Add(new SelectListItem { Text = c.subcategory, Value = c.subID.ToString() });
+                }
+            }
+            return Json(new SelectList(lstSubCats, "Value", "Text", JsonRequestBehavior.AllowGet));
+        }
+
+        public JsonResult getModel(int id)
+        {
+            var models = db.tbl_model.Where(x => x.subID == id).ToList();
+            List<SelectListItem> lstModels = new List<SelectListItem>();
+            lstModels.Add(new SelectListItem { Text = "[Select Model]", Value = "0" });
+            if (models != null)
+            {
+                foreach (var c in models)
+                {
+                    lstModels.Add(new SelectListItem { Text = c.model, Value = c.modID.ToString() });
+                }
+            }
+            return Json(new SelectList(lstModels, "Value", "Text", JsonRequestBehavior.AllowGet));
         }
 
         // POST: product/Create

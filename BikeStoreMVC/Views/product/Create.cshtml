@@ -4,7 +4,52 @@
     ViewBag.Title = "Create";
 }
 
-<h2>Create</h2>
+<h2>Add a new item</h2>
+<script src="~/Scripts/jquery-3.1.1.min.js"></script>
+<script type="text/javascript">
+    $(document).ready(function () {
+        $("#categoryID").change(function () {
+            $("#subCategoryID").empty();
+            $.ajax({
+                type: 'POST',
+                url: '@Url.Action("getSubCategory")',
+                datatype: 'json',
+                data: { id: $("#categoryID").val() },
+                success: function (subcategories) {
+                    $.each(subcategories, function (i, subcategory) {
+                        $("#subCategoryID").append('<option value="' + subcategory.Value + '">' + subcategory.Text + '</option>');
+                    });
+                },
+                error: function (ex) {
+                    alert('Failed to get sub categories' + ex);
+                }
+            });
+            return false;
+        })
+    });
+</script>
+<script type="text/javascript">
+    $(document).ready(function () {
+        $("#subCategoryID").change(function () {
+            $("#modelID").empty();
+            $.ajax({
+                type: 'POST',
+                url: '@Url.Action("getModel")',
+                datatype: 'json',
+                data: { id: $("#subCategoryID").val() },
+                success: function (models) {
+                    $.each(models, function (i, model) {
+                        $("#modelID").append('<option value="' + model.Value + '">' + model.Text + '</option>');
+                    });
+                },
+                error: function (ex) {
+                    alert('Failed to get models' + ex);
+                }
+            });
+            return false;
+        })
+    });
+</script>
 
 
 @using (Html.BeginForm()) 
@@ -34,7 +79,8 @@
         <div class="form-group">
             @Html.LabelFor(model => model.categoryID, "categoryID", htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.DropDownList("categoryID", null, htmlAttributes: new { @class = "form-control" })    
+                @*@Html.DropDownList("categoryID", null, htmlAttributes: new { @class = "form-control" }) *@    
+                @Html.DropDownList("categoryID", ViewBag.category as List<SelectListItem>, new { style = "width: 200px;" })
                 @Html.ValidationMessageFor(model => model.categoryID, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -42,7 +88,8 @@
         <div class="form-group">
             @Html.LabelFor(model => model.subCategoryID, "subCategoryID", htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.DropDownList("subCategoryID", null, htmlAttributes: new { @class = "form-control" }) 
+               @*@Html.DropDownList("subCategoryID", null, htmlAttributes: new { @class = "form-control" })*@
+                @Html.DropDownList("subCategoryID", new SelectList(string.Empty, "Value","Text"),"[Select Sub Category]", new { style = "width: 200px" }) 
                 @Html.ValidationMessageFor(model => model.subCategoryID, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -50,7 +97,8 @@
         <div class="form-group">
             @Html.LabelFor(model => model.modelID, "modelID", htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.DropDownList("modelID", null, htmlAttributes: new { @class = "form-control" })
+                @*@Html.DropDownList("modelID", null, htmlAttributes: new { @class = "form-control" }) *@
+                @Html.DropDownList("modelID", new SelectList(string.Empty, "Value", "Text"), "[Select Model]", new { style = "width: 200px" })
                 @Html.ValidationMessageFor(model => model.modelID, "", new { @class = "text-danger" })
             </div>
         </div>

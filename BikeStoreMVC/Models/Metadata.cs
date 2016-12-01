@@ -11,5 +11,21 @@ namespace BikeStoreMVC.Models
         [StringLength(10)]
         [Display(Name = "Product Code")]
         public string productCode;
+
+        [Display(Name = "Product Name")]
+        public string productName;
+
+        [Display(Name = "Category")]
+        public int categoryID;
+        [Display(Name = "Sub Category")]
+        public int subCategoryID;
+        [Display(Name = "Model")]
+        public int modelID;
+    }
+
+    public class categoryMetadata
+    {
+        [Display(Name = "Category")]
+        public int catID;
     }
 }

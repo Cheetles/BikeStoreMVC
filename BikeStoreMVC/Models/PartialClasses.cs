@@ -11,4 +11,7 @@ namespace BikeStoreMVC.Models
     {
     }
 
+    [MetadataType(typeof(categoryMetadata))]
+    public partial class tbl_category
+    { }
 }
