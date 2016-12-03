@@ -20,7 +20,7 @@ namespace BikeStoreMVC.Models
             this.tbl_product = new HashSet<tbl_product>();
         }
     
-        public int? sizID { get; set; }
+        public int sizID { get; set; }
         public string size { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

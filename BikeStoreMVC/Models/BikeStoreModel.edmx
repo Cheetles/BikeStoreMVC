@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-    <Schema Namespace="BikeStoreModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+      <Schema Namespace="BikeStoreModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="tbl_category">
           <Key>
             <PropertyRef Name="catID" />
@@ -18,13 +18,6 @@
           </Key>
           <Property Name="colID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="colour" Type="varchar" MaxLength="15" Nullable="false" />
-        </EntityType>
-        <EntityType Name="tbl_description">
-          <Key>
-            <PropertyRef Name="desID" />
-          </Key>
-          <Property Name="desID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="description" Type="varchar" MaxLength="250" Nullable="false" />
         </EntityType>
         <EntityType Name="tbl_model">
           <Key>
@@ -47,7 +40,7 @@
           <Property Name="price" Type="decimal" Precision="18" Scale="2" Nullable="false" />
           <Property Name="colourID" Type="int" />
           <Property Name="sizeID" Type="int" />
-          <Property Name="descriptionID" Type="int" Nullable="false" />
+          <Property Name="description" Type="varchar" MaxLength="250" />
         </EntityType>
         <EntityType Name="tbl_size">
           <Key>
@@ -124,18 +117,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_tbl_product_tbl_product_descriptionID">
-          <End Role="tbl_description" Type="Self.tbl_description" Multiplicity="1" />
-          <End Role="tbl_product" Type="Self.tbl_product" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="tbl_description">
-              <PropertyRef Name="desID" />
-            </Principal>
-            <Dependent Role="tbl_product">
-              <PropertyRef Name="descriptionID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_tbl_product_tbl_product_sizeID">
           <End Role="tbl_size" Type="Self.tbl_size" Multiplicity="0..1" />
           <End Role="tbl_product" Type="Self.tbl_product" Multiplicity="*" />
@@ -163,7 +144,6 @@
         <EntityContainer Name="BikeStoreModelStoreContainer">
           <EntitySet Name="tbl_category" EntityType="Self.tbl_category" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tbl_colour" EntityType="Self.tbl_colour" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="tbl_description" EntityType="Self.tbl_description" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tbl_model" EntityType="Self.tbl_model" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tbl_product" EntityType="Self.tbl_product" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tbl_size" EntityType="Self.tbl_size" Schema="dbo" store:Type="Tables" />
@@ -188,10 +168,6 @@
             <End Role="tbl_colour" EntitySet="tbl_colour" />
             <End Role="tbl_product" EntitySet="tbl_product" />
           </AssociationSet>
-          <AssociationSet Name="FK_tbl_product_tbl_product_descriptionID" Association="Self.FK_tbl_product_tbl_product_descriptionID">
-            <End Role="tbl_description" EntitySet="tbl_description" />
-            <End Role="tbl_product" EntitySet="tbl_product" />
-          </AssociationSet>
           <AssociationSet Name="FK_tbl_product_tbl_product_sizeID" Association="Self.FK_tbl_product_tbl_product_sizeID">
             <End Role="tbl_size" EntitySet="tbl_size" />
             <End Role="tbl_product" EntitySet="tbl_product" />
@@ -201,7 +177,8 @@
             <End Role="tbl_product" EntitySet="tbl_product" />
           </AssociationSet>
         </EntityContainer>
-      </Schema></edmx:StorageModels>
+      </Schema>
+    </edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="BikeStoreModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -222,23 +199,15 @@
           <Property Name="colour" Type="String" MaxLength="15" FixedLength="false" Unicode="false" Nullable="false" />
           <NavigationProperty Name="tbl_product" Relationship="Self.FK_tbl_product_tbl_product_colourID" FromRole="tbl_colour" ToRole="tbl_product" />
         </EntityType>
-        <EntityType Name="tbl_description">
-          <Key>
-            <PropertyRef Name="desID" />
-          </Key>
-          <Property Name="desID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="description" Type="String" MaxLength="250" FixedLength="false" Unicode="false" Nullable="false" />
-          <NavigationProperty Name="tbl_product" Relationship="Self.FK_tbl_product_tbl_product_descriptionID" FromRole="tbl_description" ToRole="tbl_product" />
-        </EntityType>
         <EntityType Name="tbl_model">
           <Key>
             <PropertyRef Name="modID" />
           </Key>
           <Property Name="modID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="model" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
-          <NavigationProperty Name="tbl_product" Relationship="Self.FK_tbl_product_tbl_product_modelID" FromRole="tbl_model" ToRole="tbl_product" />
           <Property Name="subID" Type="Int32" />
-          <NavigationProperty Name="tbl_sub_category" Relationship="BikeStoreModel.FK_tbl_model_tbl_sub_category_subID" FromRole="tbl_model" ToRole="tbl_sub_category" />
+          <Property Name="model" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="tbl_sub_category" Relationship="Self.FK_tbl_model_tbl_sub_category_subID" FromRole="tbl_model" ToRole="tbl_sub_category" />
+          <NavigationProperty Name="tbl_product" Relationship="Self.FK_tbl_product_tbl_model_modID" FromRole="tbl_model" ToRole="tbl_product" />
         </EntityType>
         <EntityType Name="tbl_product">
           <Key>
@@ -253,11 +222,10 @@
           <Property Name="price" Type="Decimal" Precision="18" Scale="2" Nullable="false" />
           <Property Name="colourID" Type="Int32" />
           <Property Name="sizeID" Type="Int32" />
-          <Property Name="descriptionID" Type="Int32" Nullable="false" />
+          <Property Name="description" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="tbl_category" Relationship="Self.FK_tbl_product_tbl_product_categoryID" FromRole="tbl_product" ToRole="tbl_category" />
           <NavigationProperty Name="tbl_colour" Relationship="Self.FK_tbl_product_tbl_product_colourID" FromRole="tbl_product" ToRole="tbl_colour" />
-          <NavigationProperty Name="tbl_description" Relationship="Self.FK_tbl_product_tbl_product_descriptionID" FromRole="tbl_product" ToRole="tbl_description" />
-          <NavigationProperty Name="tbl_model" Relationship="Self.FK_tbl_product_tbl_product_modelID" FromRole="tbl_product" ToRole="tbl_model" />
+          <NavigationProperty Name="tbl_model" Relationship="Self.FK_tbl_product_tbl_model_modID" FromRole="tbl_product" ToRole="tbl_model" />
           <NavigationProperty Name="tbl_size" Relationship="Self.FK_tbl_product_tbl_product_sizeID" FromRole="tbl_product" ToRole="tbl_size" />
           <NavigationProperty Name="tbl_sub_category" Relationship="Self.FK_tbl_product_tbl_product_subCategoryID" FromRole="tbl_product" ToRole="tbl_sub_category" />
         </EntityType>
@@ -277,8 +245,8 @@
           <Property Name="catID" Type="Int32" Nullable="false" />
           <Property Name="subcategory" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
           <NavigationProperty Name="tbl_category" Relationship="Self.fk_dbo_BikeStore_category_catID" FromRole="tbl_sub_category" ToRole="tbl_category" />
+          <NavigationProperty Name="tbl_model" Relationship="Self.FK_tbl_model_tbl_sub_category_subID" FromRole="tbl_sub_category" ToRole="tbl_model" />
           <NavigationProperty Name="tbl_product" Relationship="Self.FK_tbl_product_tbl_product_subCategoryID" FromRole="tbl_sub_category" ToRole="tbl_product" />
-          <NavigationProperty Name="tbl_model" Relationship="BikeStoreModel.FK_tbl_model_tbl_sub_category_subID" FromRole="tbl_sub_category" ToRole="tbl_model" />
         </EntityType>
         <Association Name="fk_dbo_BikeStore_category_catID">
           <End Role="tbl_category" Type="Self.tbl_category" Multiplicity="1" />
@@ -316,19 +284,19 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_tbl_product_tbl_product_descriptionID">
-          <End Role="tbl_description" Type="Self.tbl_description" Multiplicity="1" />
-          <End Role="tbl_product" Type="Self.tbl_product" Multiplicity="*" />
+        <Association Name="FK_tbl_model_tbl_sub_category_subID">
+          <End Role="tbl_sub_category" Type="Self.tbl_sub_category" Multiplicity="0..1" />
+          <End Role="tbl_model" Type="Self.tbl_model" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="tbl_description">
-              <PropertyRef Name="desID" />
+            <Principal Role="tbl_sub_category">
+              <PropertyRef Name="subID" />
             </Principal>
-            <Dependent Role="tbl_product">
-              <PropertyRef Name="descriptionID" />
+            <Dependent Role="tbl_model">
+              <PropertyRef Name="subID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_tbl_product_tbl_product_modelID">
+        <Association Name="FK_tbl_product_tbl_model_modID">
           <End Role="tbl_model" Type="Self.tbl_model" Multiplicity="1" />
           <End Role="tbl_product" Type="Self.tbl_product" Multiplicity="*" />
           <ReferentialConstraint>
@@ -367,7 +335,6 @@
         <EntityContainer Name="BikeStoreEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="tbl_category" EntityType="Self.tbl_category" />
           <EntitySet Name="tbl_colour" EntityType="Self.tbl_colour" />
-          <EntitySet Name="tbl_description" EntityType="Self.tbl_description" />
           <EntitySet Name="tbl_model" EntityType="Self.tbl_model" />
           <EntitySet Name="tbl_product" EntityType="Self.tbl_product" />
           <EntitySet Name="tbl_size" EntityType="Self.tbl_size" />
@@ -384,11 +351,11 @@
             <End Role="tbl_colour" EntitySet="tbl_colour" />
             <End Role="tbl_product" EntitySet="tbl_product" />
           </AssociationSet>
-          <AssociationSet Name="FK_tbl_product_tbl_product_descriptionID" Association="Self.FK_tbl_product_tbl_product_descriptionID">
-            <End Role="tbl_description" EntitySet="tbl_description" />
-            <End Role="tbl_product" EntitySet="tbl_product" />
+          <AssociationSet Name="FK_tbl_model_tbl_sub_category_subID" Association="Self.FK_tbl_model_tbl_sub_category_subID">
+            <End Role="tbl_sub_category" EntitySet="tbl_sub_category" />
+            <End Role="tbl_model" EntitySet="tbl_model" />
           </AssociationSet>
-          <AssociationSet Name="FK_tbl_product_tbl_product_modelID" Association="Self.FK_tbl_product_tbl_product_modelID">
+          <AssociationSet Name="FK_tbl_product_tbl_model_modID" Association="Self.FK_tbl_product_tbl_model_modID">
             <End Role="tbl_model" EntitySet="tbl_model" />
             <End Role="tbl_product" EntitySet="tbl_product" />
           </AssociationSet>
@@ -400,23 +367,7 @@
             <End Role="tbl_sub_category" EntitySet="tbl_sub_category" />
             <End Role="tbl_product" EntitySet="tbl_product" />
           </AssociationSet>
-          <AssociationSet Name="FK_tbl_model_tbl_sub_category_subID" Association="BikeStoreModel.FK_tbl_model_tbl_sub_category_subID">
-            <End Role="tbl_sub_category" EntitySet="tbl_sub_category" />
-            <End Role="tbl_model" EntitySet="tbl_model" />
-          </AssociationSet>
         </EntityContainer>
-        <Association Name="FK_tbl_model_tbl_sub_category_subID">
-          <End Type="BikeStoreModel.tbl_sub_category" Role="tbl_sub_category" Multiplicity="0..1" />
-          <End Type="BikeStoreModel.tbl_model" Role="tbl_model" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="tbl_sub_category">
-              <PropertyRef Name="subID" />
-            </Principal>
-            <Dependent Role="tbl_model">
-              <PropertyRef Name="subID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -439,19 +390,11 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="tbl_description">
-            <EntityTypeMapping TypeName="BikeStoreModel.tbl_description">
-              <MappingFragment StoreEntitySet="tbl_description">
-                <ScalarProperty Name="desID" ColumnName="desID" />
-                <ScalarProperty Name="description" ColumnName="description" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="tbl_model">
             <EntityTypeMapping TypeName="BikeStoreModel.tbl_model">
               <MappingFragment StoreEntitySet="tbl_model">
-                <ScalarProperty Name="subID" ColumnName="subID" />
                 <ScalarProperty Name="modID" ColumnName="modID" />
+                <ScalarProperty Name="subID" ColumnName="subID" />
                 <ScalarProperty Name="model" ColumnName="model" />
               </MappingFragment>
             </EntityTypeMapping>
@@ -468,7 +411,7 @@
                 <ScalarProperty Name="price" ColumnName="price" />
                 <ScalarProperty Name="colourID" ColumnName="colourID" />
                 <ScalarProperty Name="sizeID" ColumnName="sizeID" />
-                <ScalarProperty Name="descriptionID" ColumnName="descriptionID" />
+                <ScalarProperty Name="description" ColumnName="description" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

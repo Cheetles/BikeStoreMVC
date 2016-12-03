@@ -34,20 +34,19 @@
             Category
         </th>
         <th>
+            Sub Category
+        </th>
+        <th>
+            @Html.ActionLink("Model", "Index", new { sortOrder = ViewBag.ModelSortParam, currentFilter = ViewBag.CurrentFilter })
+        </th>
+        <th>
             Colour
         </th>
         <th>
             Description
         </th>
         <th>
-            @*@Html.DisplayNameFor(model => model.tbl_model.model)*@
-            @Html.ActionLink("Model", "Index", new { sortOrder = ViewBag.ModelSortParam, currentFilter=ViewBag.CurrentFilter})
-        </th>
-        <th>
            Size
-        </th>
-        <th>
-            Sub Category
         </th>
         <th></th>
     </tr>
@@ -67,20 +66,22 @@
             @Html.DisplayFor(modelItem => item.tbl_category.category)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.tbl_colour.colour)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.tbl_description.description)
+            @Html.DisplayFor(modelItem => item.tbl_sub_category.subcategory)
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.tbl_model.model)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.tbl_size.size)
+            @Html.DisplayFor(modelItem => item.tbl_colour.colour)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.tbl_sub_category.subcategory)
+            @Html.DisplayFor(modelItem => item.description)
         </td>
+        
+        <td>
+            @Html.DisplayFor(modelItem => item.tbl_size.size)
+        </td>
+        
         <td>
             @Html.ActionLink("Edit", "Edit", new { id=item.proID }) |
             @Html.ActionLink("Details", "Details", new { id=item.proID }) |

@@ -209,7 +209,6 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\categoryController.cs" />
     <Compile Include="Controllers\colourController.cs" />
-    <Compile Include="Controllers\descriptionController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\modelController.cs" />
@@ -243,9 +242,6 @@
       <DependentUpon>BikeStoreModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\tbl_colour.cs">
-      <DependentUpon>BikeStoreModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\tbl_description.cs">
       <DependentUpon>BikeStoreModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\tbl_model.cs">
@@ -365,11 +361,6 @@
     <Content Include="Views\colour\Details.cshtml" />
     <Content Include="Views\colour\Edit.cshtml" />
     <Content Include="Views\colour\Index.cshtml" />
-    <Content Include="Views\description\Create.cshtml" />
-    <Content Include="Views\description\Delete.cshtml" />
-    <Content Include="Views\description\Details.cshtml" />
-    <Content Include="Views\description\Edit.cshtml" />
-    <Content Include="Views\description\Index.cshtml" />
     <Content Include="Views\model\Create.cshtml" />
     <Content Include="Views\model\Delete.cshtml" />
     <Content Include="Views\model\Details.cshtml" />

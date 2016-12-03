@@ -23,11 +23,10 @@ namespace BikeStoreMVC.Models
         public decimal price { get; set; }
         public Nullable<int> colourID { get; set; }
         public Nullable<int> sizeID { get; set; }
-        public int descriptionID { get; set; }
+        public string description { get; set; }
     
         public virtual tbl_category tbl_category { get; set; }
         public virtual tbl_colour tbl_colour { get; set; }
-        public virtual tbl_description tbl_description { get; set; }
         public virtual tbl_model tbl_model { get; set; }
         public virtual tbl_size tbl_size { get; set; }
         public virtual tbl_sub_category tbl_sub_category { get; set; }

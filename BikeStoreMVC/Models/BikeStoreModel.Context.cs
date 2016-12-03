@@ -27,7 +27,6 @@ namespace BikeStoreMVC.Models
     
         public virtual DbSet<tbl_category> tbl_category { get; set; }
         public virtual DbSet<tbl_colour> tbl_colour { get; set; }
-        public virtual DbSet<tbl_description> tbl_description { get; set; }
         public virtual DbSet<tbl_model> tbl_model { get; set; }
         public virtual DbSet<tbl_product> tbl_product { get; set; }
         public virtual DbSet<tbl_size> tbl_size { get; set; }

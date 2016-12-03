@@ -42,7 +42,7 @@ namespace BikeStoreMVC.Controllers
             
 
             ViewBag.CurrentFilter = searchString;
-            var tbl_product = db.tbl_product.Include(t => t.tbl_category).Include(t => t.tbl_colour).Include(t => t.tbl_description).Include(t => t.tbl_model).Include(t => t.tbl_size).Include(t => t.tbl_sub_category);
+            var tbl_product = db.tbl_product.Include(t => t.tbl_category).Include(t => t.tbl_colour).Include(t => t.tbl_model).Include(t => t.tbl_size).Include(t => t.tbl_sub_category);
 
             if (!String.IsNullOrEmpty(searchString))
             {
@@ -95,7 +95,6 @@ namespace BikeStoreMVC.Controllers
             //ViewBag.categoryID = new SelectList(db.tbl_category, "catID", "category");
             //ViewBag.subCategoryID = new SelectList(db.tbl_sub_category, "subID", "subCategory");
             ViewBag.colourID = new SelectList(db.tbl_colour, "colID", "colour");
-            ViewBag.descriptionID = new SelectList(db.tbl_description, "desID", "description");
             //ViewBag.modelID = new SelectList(db.tbl_model, "modID", "model");
             ViewBag.sizeID = new SelectList(db.tbl_size, "sizID", "size");
            
@@ -137,7 +136,7 @@ namespace BikeStoreMVC.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "proID,productCode,productName,categoryID,subCategoryID,modelID,price,colourID,sizeID,descriptionID")] tbl_product tbl_product)
+        public ActionResult Create([Bind(Include = "proID,productCode,productName,categoryID,subCategoryID,modelID,price,colourID,sizeID,description")] tbl_product tbl_product)
         {
             if (ModelState.IsValid)
             {
@@ -148,7 +147,6 @@ namespace BikeStoreMVC.Controllers
 
             ViewBag.categoryID = new SelectList(db.tbl_category, "catID", "category", tbl_product.categoryID);
             ViewBag.colourID = new SelectList(db.tbl_colour, "colID", "colour", tbl_product.colourID);
-            ViewBag.descriptionID = new SelectList(db.tbl_description, "desID", "description", tbl_product.descriptionID);
             ViewBag.modelID = new SelectList(db.tbl_model, "modID", "model", tbl_product.modelID);
             ViewBag.sizeID = new SelectList(db.tbl_size, "sizID", "size", tbl_product.sizeID);
             ViewBag.subCategoryID = new SelectList(db.tbl_sub_category, "subID", "subcategory", tbl_product.subCategoryID);
@@ -169,7 +167,6 @@ namespace BikeStoreMVC.Controllers
             }
             ViewBag.categoryID = new SelectList(db.tbl_category, "catID", "category", tbl_product.categoryID);
             ViewBag.colourID = new SelectList(db.tbl_colour, "colID", "colour", tbl_product.colourID);
-            ViewBag.descriptionID = new SelectList(db.tbl_description, "desID", "description", tbl_product.descriptionID);
             ViewBag.modelID = new SelectList(db.tbl_model, "modID", "model", tbl_product.modelID);
             ViewBag.sizeID = new SelectList(db.tbl_size, "sizID", "size", tbl_product.sizeID);
             ViewBag.subCategoryID = new SelectList(db.tbl_sub_category, "subID", "subcategory", tbl_product.subCategoryID);
@@ -181,7 +178,7 @@ namespace BikeStoreMVC.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "proID,productCode,productName,categoryID,subCategoryID,modelID,price,colourID,sizeID,descriptionID")] tbl_product tbl_product)
+        public ActionResult Edit([Bind(Include = "proID,productCode,productName,categoryID,subCategoryID,modelID,price,colourID,sizeID,description")] tbl_product tbl_product)
         {
             if (ModelState.IsValid)
             {
@@ -191,7 +188,6 @@ namespace BikeStoreMVC.Controllers
             }
             ViewBag.categoryID = new SelectList(db.tbl_category, "catID", "category", tbl_product.categoryID);
             ViewBag.colourID = new SelectList(db.tbl_colour, "colID", "colour", tbl_product.colourID);
-            ViewBag.descriptionID = new SelectList(db.tbl_description, "desID", "description", tbl_product.descriptionID);
             ViewBag.modelID = new SelectList(db.tbl_model, "modID", "model", tbl_product.modelID);
             ViewBag.sizeID = new SelectList(db.tbl_size, "sizID", "size", tbl_product.sizeID);
             ViewBag.subCategoryID = new SelectList(db.tbl_sub_category, "subID", "subcategory", tbl_product.subCategoryID);
