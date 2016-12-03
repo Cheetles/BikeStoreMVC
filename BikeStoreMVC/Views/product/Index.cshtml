@@ -7,7 +7,7 @@
     ViewBag.Title = "Products";
 }
 
-<h2>Products</h2>
+<h2>Show Products</h2>
 
 <p>
     @Html.ActionLink("Create New", "Create")
@@ -15,7 +15,7 @@
 @using (Html.BeginForm("Index", "product", FormMethod.Get))
 {
     <p>
-        Find by name: @Html.TextBox("SearchString", ViewBag.CurrentFilter as string)
+        Find by product name or code: @Html.TextBox("SearchString", ViewBag.CurrentFilter as string)
         <input type="submit" value="Search" />
     </p>
 }
@@ -31,10 +31,10 @@
            Price
         </th>
         <th>
-            Category
+            @Html.ActionLink("Category", "Index", new { sortOrder = ViewBag.CategorySortParam, currentFilter = ViewBag.CurrentFilter })
         </th>
         <th>
-            Sub Category
+           @Html.ActionLink("Sub Category", "Index", new { sortOrder = ViewBag.SubCategorySortParam, currentFilter = ViewBag.CurrentFilter })
         </th>
         <th>
             @Html.ActionLink("Model", "Index", new { sortOrder = ViewBag.ModelSortParam, currentFilter = ViewBag.CurrentFilter })

@@ -15,6 +15,12 @@ namespace BikeStoreMVC.Models
         [Display(Name = "Product Name")]
         public string productName;
 
+        [Display(Name = "Price")]
+        [DisplayFormat(DataFormatString = "{0:C}", ApplyFormatInEditMode = false)]
+        public decimal price;
+
+
+
         [Display(Name = "Category")]
         public int categoryID;
         [Display(Name = "Sub Category")]

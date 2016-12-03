@@ -30,6 +30,8 @@ namespace BikeStoreMVC.Controllers
         {
             ViewBag.CurrentSort = sortOrder;
             ViewBag.ModelSortParam = string.IsNullOrEmpty(sortOrder) ? "model_desc" : "";
+            ViewBag.CategorySortParam = string.IsNullOrEmpty(sortOrder) ? "category_desc" : "";
+            ViewBag.SubCategorySortParam = string.IsNullOrEmpty(sortOrder) ? "subcategory_desc" : "";
 
             if (searchString != null)
             {
@@ -46,13 +48,19 @@ namespace BikeStoreMVC.Controllers
 
             if (!String.IsNullOrEmpty(searchString))
             {
-                tbl_product = tbl_product.Where(s => s.productName.Contains(searchString));
+                tbl_product = tbl_product.Where(s => s.productName.Contains(searchString) || s.productCode.Contains(searchString));
             }
 
             switch (sortOrder)
             {
                 case "model_desc":
                     tbl_product = tbl_product.OrderByDescending(s => s.tbl_model.model);
+                    break;
+                case "category_desc":
+                    tbl_product = tbl_product.OrderByDescending(s => s.tbl_category.category);
+                    break;
+                case "subcategory_desc":
+                    tbl_product = tbl_product.OrderByDescending(s => s.tbl_sub_category.subcategory);
                     break;
                 default:
                     tbl_product = tbl_product.OrderBy(s => s.tbl_model.model);
@@ -165,11 +173,19 @@ namespace BikeStoreMVC.Controllers
             {
                 return HttpNotFound();
             }
-            ViewBag.categoryID = new SelectList(db.tbl_category, "catID", "category", tbl_product.categoryID);
+            var category = db.tbl_category.ToList();
+            List<SelectListItem> li = new List<SelectListItem>();
+            li.Add(new SelectListItem { Text = "[Select a category]", Value = "0" });
+            foreach (var c in category)
+            {
+                li.Add(new SelectListItem { Text = c.category, Value = c.catID.ToString() });
+                ViewBag.category = li;
+            }
+            //ViewBag.categoryID = new SelectList(db.tbl_category, "catID", "category", tbl_product.categoryID);
             ViewBag.colourID = new SelectList(db.tbl_colour, "colID", "colour", tbl_product.colourID);
-            ViewBag.modelID = new SelectList(db.tbl_model, "modID", "model", tbl_product.modelID);
+            //ViewBag.modelID = new SelectList(db.tbl_model, "modID", "model", tbl_product.modelID);
             ViewBag.sizeID = new SelectList(db.tbl_size, "sizID", "size", tbl_product.sizeID);
-            ViewBag.subCategoryID = new SelectList(db.tbl_sub_category, "subID", "subcategory", tbl_product.subCategoryID);
+            //ViewBag.subCategoryID = new SelectList(db.tbl_sub_category, "subID", "subcategory", tbl_product.subCategoryID);
             return View(tbl_product);
         }
 
