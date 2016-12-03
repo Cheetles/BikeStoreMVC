@@ -15,14 +15,14 @@ namespace BikeStoreMVC.Controllers
 
         public ActionResult About()
         {
-            ViewBag.Message = "Your application description page.";
+            ViewBag.Message = "Bike Store Application.";
 
             return View();
         }
 
         public ActionResult Contact()
         {
-            ViewBag.Message = "Your contact page.";
+            ViewBag.Message = "Simon Chettleburgh.";
 
             return View();
         }

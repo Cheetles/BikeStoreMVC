@@ -17,7 +17,7 @@ namespace BikeStoreMVC.Controllers
         // GET: sub_category
         public ActionResult Index()
         {
-            var tbl_sub_category = db.tbl_sub_category.Include(t => t.tbl_category);
+            var tbl_sub_category = db.tbl_sub_category.Include(t => t.tbl_category).OrderBy(x => x.subcategory);
             return View(tbl_sub_category.ToList());
         }
 

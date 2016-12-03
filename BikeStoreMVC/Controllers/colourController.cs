@@ -17,7 +17,7 @@ namespace BikeStoreMVC.Controllers
         // GET: colour
         public ActionResult Index()
         {
-            return View(db.tbl_colour.ToList());
+            return View(db.tbl_colour.OrderBy(x => x.colour).ToList());
         }
 
         // GET: colour/Details/5

@@ -17,7 +17,7 @@ namespace BikeStoreMVC.Controllers
         // GET: category
         public ActionResult Index()
         {
-            return View(db.tbl_category.ToList());
+            return View(db.tbl_category.OrderBy(x => x.category).ToList());
         }
 
         // GET: category/Details/5

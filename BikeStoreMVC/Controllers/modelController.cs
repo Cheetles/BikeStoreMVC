@@ -17,7 +17,7 @@ namespace BikeStoreMVC.Controllers
         // GET: model
         public ActionResult Index()
         {
-            return View(db.tbl_model.ToList());
+            return View(db.tbl_model.OrderBy(x => x.model).ToList());
         }
 
         // GET: model/Details/5
@@ -38,6 +38,7 @@ namespace BikeStoreMVC.Controllers
         // GET: model/Create
         public ActionResult Create()
         {
+            ViewBag.subID = new SelectList(db.tbl_sub_category, "subID", "subcategory");
             return View();
         }
 
@@ -46,7 +47,7 @@ namespace BikeStoreMVC.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "modID,model")] tbl_model tbl_model)
+        public ActionResult Create([Bind(Include = "modID,subID,model")] tbl_model tbl_model)
         {
             if (ModelState.IsValid)
             {
@@ -54,12 +55,14 @@ namespace BikeStoreMVC.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
+            ViewBag.subID = new SelectList(db.tbl_sub_category, "subID", "subcategory", tbl_model.subID);
 
             return View(tbl_model);
         }
+        
 
-        // GET: model/Edit/5
-        public ActionResult Edit(int? id)
+// GET: model/Edit/5
+public ActionResult Edit(int? id)
         {
             if (id == null)
             {
@@ -70,6 +73,7 @@ namespace BikeStoreMVC.Controllers
             {
                 return HttpNotFound();
             }
+            ViewBag.subID = new SelectList(db.tbl_sub_category, "subID", "subcategory", tbl_model.subID);
             return View(tbl_model);
         }
 
@@ -78,7 +82,7 @@ namespace BikeStoreMVC.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "modID,model")] tbl_model tbl_model)
+        public ActionResult Edit([Bind(Include = "modID,subID,model")] tbl_model tbl_model)
         {
             if (ModelState.IsValid)
             {
@@ -86,6 +90,8 @@ namespace BikeStoreMVC.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
+            ViewBag.subID = new SelectList(db.tbl_sub_category, "subID", "subcategory", tbl_model.subID);
+
             return View(tbl_model);
         }
 

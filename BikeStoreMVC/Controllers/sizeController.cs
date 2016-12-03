@@ -17,7 +17,7 @@ namespace BikeStoreMVC.Controllers
         // GET: size
         public ActionResult Index()
         {
-            return View(db.tbl_size.ToList());
+            return View(db.tbl_size.OrderBy(x => x.size).ToList());
         }
 
         // GET: size/Details/5

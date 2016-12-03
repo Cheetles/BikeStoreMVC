@@ -1,10 +1,10 @@
 ﻿@model BikeStoreMVC.Models.tbl_sub_category
 
 @{
-    ViewBag.Title = "Create";
+    ViewBag.Title = "Create Sub Category";
 }
 
-<h2>Create</h2>
+<h2>Create Sub Category</h2>
 
 
 @using (Html.BeginForm()) 
@@ -12,7 +12,7 @@
     @Html.AntiForgeryToken()
     
     <div class="form-horizontal">
-        <h4>tbl_sub_category</h4>
+        <h4>Sub Category</h4>
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         <div class="form-group">
